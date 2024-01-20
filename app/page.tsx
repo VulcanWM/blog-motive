@@ -8,12 +8,13 @@ export default function IndexPage() {
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex max-w-[980px] flex-col items-start gap-2">
         <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-          Beautifully designed components <br className="hidden sm:inline" />
-          built with Radix UI and Tailwind CSS.
+          Want to write blogs consistently?<br className="hidden sm:inline" />
+          Get and stay motivated with Blog Motive 
         </h1>
         <p className="max-w-[700px] text-lg text-muted-foreground">
-          Accessible and customizable components that you can copy and paste
-          into your apps. Free. Open Source. And Next.js 13 Ready.
+          Set targets for your bloging journey and track them.<br/>
+          View stats related to your account.<br/>
+          Integrated with your Hashnode account for the best experience.
         </p>
       </div>
       <div className="flex gap-4">
