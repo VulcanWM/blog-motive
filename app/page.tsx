@@ -12,8 +12,7 @@ export default function IndexPage() {
           Get and stay motivated with Blog Motive 
         </h1>
         <p className="max-w-[700px] text-lg text-muted-foreground">
-          Set targets for your bloging journey and track them.<br/>
-          View stats related to your account.<br/>
+          Set targets for your blogging journey and track them.<br/>
           Integrated with your Hashnode account for the best experience.
         </p>
       </div>
