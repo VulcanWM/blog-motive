@@ -1,6 +1,8 @@
 import { getArticles } from '@/lib/database'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { getDrafts } from '../actions'
+import CreateArticleForm from '@/components/create-article-form'
 
 export default async function IndexPage() {
     const cookieStore = cookies()
@@ -9,11 +11,10 @@ export default async function IndexPage() {
         redirect("/signin")
     }
     const token = tokenDict.value
-    const userIdDict = cookieStore.get('id')
-    const userId = parseInt(String(userIdDict?.value))
+    const userId = cookieStore.get('id')?.value as string;
     const username = cookieStore.get('username')?.value as string;
     const articles = await getArticles(userId)
-    console.log(articles)
+    const draftsArray = await getDrafts()
     return (
         <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
             <div className="flex max-w-[980px] flex-col items-start gap-2">
@@ -23,6 +24,7 @@ export default async function IndexPage() {
             <p className="max-w-[700px] text-lg text-muted-foreground">
                 hey {username}
             </p>
+            <CreateArticleForm drafts={JSON.parse(JSON.stringify(draftsArray))} articles={JSON.parse(JSON.stringify(articles))}></CreateArticleForm>
         </div>
     </section>
   )
