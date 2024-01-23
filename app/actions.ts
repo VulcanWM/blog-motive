@@ -138,8 +138,14 @@ export async function addArticleFunc(prevState: { message: string } | { message:
             return {message: "That is not your draft!"}
         }
         if (data.data.draft.author.id == userId){
+            const id = data.data.draft.id;
+            const title = data.data.draft.title;
             const dateDeadline = new Date(deadline)
             const func = await createArticle(userId, draftId, dateDeadline)
+            if (typeof func == "object"){
+                func.id = id;
+                func.title = title;
+            }
             return {message: func}
         } else {
             return {message: "That is not your draft!"}

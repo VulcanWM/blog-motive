@@ -48,7 +48,18 @@ export default function CreateArticleForm(props: {drafts: {node: {title: string,
 
   useEffect(() => {
     if (typeof state.message == "object"){
-        setArticles(oldArray => [...oldArray, JSON.parse(JSON.stringify(state.message))]);
+      const obj = state.message;
+      const deadline = String(new Date(obj.deadline));
+      obj.deadline = deadline;
+      setArticles(oldArray => [...oldArray, JSON.parse(JSON.stringify(obj))]);
+      // const newArticles = articles;
+      // newArticles.push(obj)
+      // setArticles()
+      // console.log(newArticles)
+      // // setArticles(newArticles);
+      // newArticles.sort((a, b) => a.deadline.getTime() - b.deadline.getTime());
+      // console.log(newArticles)
+      // setArticles(newArticles)
     }
   },[state])
 
