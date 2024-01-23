@@ -36,7 +36,7 @@ export default function CreateArticleForm(props: {drafts: {node: {title: string,
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
   const [articles, setArticles] = useState(props.stats);
-  
+
   const router = useRouter()
   const [state, formAction] = useFormState(
     addArticleFunc,
@@ -60,7 +60,7 @@ export default function CreateArticleForm(props: {drafts: {node: {title: string,
         <h2 className="text-3xl font-bold">Draft Goals</h2>
           {articles.map((article) => (
             <div id={article._id} key={article._id}>
-                <p>{article.articleId} {String(article.deadline)}</p>
+                <p>{article.title} {String(article.deadline)}</p>
             </div>
           ))}
         <form action={formAction}>

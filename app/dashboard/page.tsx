@@ -16,11 +16,21 @@ export default async function IndexPage() {
     const username = cookieStore.get('username')?.value as string;
     const articles = await getArticles(userId)
     const stats: {"_id": string, userId: string, articleId: string, deadline: Date, id: string, title: string}[] = []
-    articles.forEach(async (article) => {
-        const statsForArticle = await getArticleStats(article.articleId)
-        const statsObject = {"_id": article._id, userId: article.userId, articleId: article.articleId, deadline: article.deadline, id: statsForArticle.id, title: statsForArticle.title}
-        stats.push(statsObject)
-    })
+    for (const article of articles) {
+        const statsForArticle = await getArticleStats(article.articleId);
+        if (statsForArticle !== null) {
+            const statsObject = {
+                "_id": String(article._id),
+                userId: article.userId,
+                articleId: article.articleId,
+                deadline: article.deadline,
+                id: statsForArticle.id,
+                title: statsForArticle.title
+            };
+    
+            stats.push(statsObject);
+        }
+    }
     const draftsArray = await getDrafts()
     return (
         <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">

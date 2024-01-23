@@ -18,3 +18,8 @@ export async function createArticle(userId: string, draftId: string, deadline: D
     })
     return JSON.parse(JSON.stringify(article))
 }
+
+export async function deleteArticle(articleId: string){
+    await Article.deleteOne({articleId: articleId})
+    return true
+}

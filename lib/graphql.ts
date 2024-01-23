@@ -1,6 +1,7 @@
 "use server"
 
 import { cookies } from 'next/headers'
+import { deleteArticle } from './database';
 
 export async function getArticleStats(articleId: string){
     const cookieStore = cookies()
@@ -37,10 +38,9 @@ export async function getArticleStats(articleId: string){
         const response = await fetch(endpoint, options);
         const data = await response.json();
         if (data.data == null){
-            return true
-            // check if it is published 
-            // if it is not, then show error
-            // if not, it is published
+            const func = await deleteArticle(articleId)
+            console.log(func)
+            return null
         } else {
             return data.data.draft
         }
