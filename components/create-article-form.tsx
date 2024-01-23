@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from 'react'
 import { Check, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Trash2 } from 'lucide-react';
 import {
     Command,
     CommandEmpty,
@@ -72,8 +73,10 @@ export default function CreateArticleForm(props: {drafts: {node: {title: string,
     <div>
         <h2 className="text-3xl font-bold">Draft Goals</h2>
           {articles.map((article) => (
-            <div id={article._id} key={article._id}>
-                <p>{article.title} {String(article.deadline).split(" 00:00:00")[0]}</p>
+            <div id={article._id} key={article._id} className="flex">
+                <p className="mr-2">{article.title}</p>
+                <p className="mr-2">{String(article.deadline).split(" 00:00:00")[0]}</p>
+                <Trash2 className="w-5 h-5" onClick={() => (console.log("hello"))}></Trash2>
             </div>
           ))}
         <form action={formAction}>
