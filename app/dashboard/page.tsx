@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getDrafts } from '../actions'
 import CreateArticleForm from '@/components/create-article-form'
+import { getArticleStats } from '@/lib/graphql'
 
 export default async function IndexPage() {
     const cookieStore = cookies()
@@ -14,6 +15,12 @@ export default async function IndexPage() {
     const userId = cookieStore.get('id')?.value as string;
     const username = cookieStore.get('username')?.value as string;
     const articles = await getArticles(userId)
+    const stats: {"_id": string, userId: string, articleId: string, deadline: Date, id: string, title: string}[] = []
+    articles.forEach(async (article) => {
+        const statsForArticle = await getArticleStats(article.articleId)
+        const statsObject = {"_id": article._id, userId: article.userId, articleId: article.articleId, deadline: article.deadline, id: statsForArticle.id, title: statsForArticle.title}
+        stats.push(statsObject)
+    })
     const draftsArray = await getDrafts()
     return (
         <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
@@ -24,7 +31,7 @@ export default async function IndexPage() {
             <p className="max-w-[700px] text-lg text-muted-foreground">
                 hey {username}
             </p>
-            <CreateArticleForm drafts={JSON.parse(JSON.stringify(draftsArray))} articles={JSON.parse(JSON.stringify(articles))}></CreateArticleForm>
+            <CreateArticleForm drafts={JSON.parse(JSON.stringify(draftsArray))} stats={stats}></CreateArticleForm>
         </div>
     </section>
   )

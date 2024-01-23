@@ -31,11 +31,12 @@ const initialState: {message: any} = {
 };
 
  
-export default function CreateArticleForm(props: {drafts: {node: {title: string, id: string}}[], articles: {_id: string, userId: string, articleId: string, deadline: Date}[]}) {
+export default function CreateArticleForm(props: {drafts: {node: {title: string, id: string}}[], stats: {"_id": string, userId: string, articleId: string, deadline: Date, id: string, title: string}[]}) {
   const drafts = props.drafts
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
-  const [articles, setArticles] = useState(props.articles);
+  const [articles, setArticles] = useState(props.stats);
+  
   const router = useRouter()
   const [state, formAction] = useFormState(
     addArticleFunc,
@@ -56,7 +57,7 @@ export default function CreateArticleForm(props: {drafts: {node: {title: string,
  
   return (
     <div>
-        <h2>Draft Goals</h2>
+        <h2 className="text-3xl font-bold">Draft Goals</h2>
           {articles.map((article) => (
             <div id={article._id} key={article._id}>
                 <p>{article.articleId} {String(article.deadline)}</p>
