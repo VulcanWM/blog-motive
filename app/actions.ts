@@ -1,7 +1,8 @@
 "use server"
 
 import { cookies } from 'next/headers'
-import { createArticle } from '@/lib/database';
+import { createArticle, deleteArticle } from '@/lib/database';
+import { getArticleStats } from '@/lib/graphql';
 
 export async function addToken(prevState: { message: string } | { message: boolean }, formData: FormData){
     const token = formData.get("token") as string;
@@ -154,4 +155,14 @@ export async function addArticleFunc(prevState: { message: string } | { message:
     } catch (error) {
         return {message: "error " + error}
     }
+}
+
+export async function deleteArticleFunc(articleId: string, userId: string){
+    const stats = await getArticleStats(articleId)
+    if (stats != null){
+        if (stats.author.id){
+            await deleteArticle(articleId)
+        }
+    }
+    return true
 }

@@ -7,7 +7,21 @@ export async function getArticles(userId: string) {
     return articles
 }
 
+export async function getArticleFromId(articleId: string){
+    await dbConnect();
+    const article = await Article.find({articleId: articleId})
+    if (article.length == 0){
+        return false
+    } else {
+        return article[0]
+    }
+}
+
 export async function createArticle(userId: string, draftId: string, deadline: Date){
+    await dbConnect();
+    if ((await getArticleFromId(draftId)) != false){
+        return "You can only have one goal for a draft!"
+    }
     if ((await getArticles(userId)).length >= 10){
         return "You can only have 10 draft deadlines!"
     }

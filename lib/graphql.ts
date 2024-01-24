@@ -44,8 +44,6 @@ export async function getArticleStats(articleId: string){
         } else {
             return data.data.draft
         }
-        
-        
     } catch (error) {
         return null
     }
