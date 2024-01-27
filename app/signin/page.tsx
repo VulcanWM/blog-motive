@@ -19,7 +19,7 @@ export default function IndexPage() {
                     Enter API Token
                 </h1>
                 <p className="max-w-[700px] text-lg text-muted-foreground">
-                    Privacy stuff
+                    The token will stay on your browser only.
                 </p>
             </div>
             <SigninForm/>

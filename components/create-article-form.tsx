@@ -54,14 +54,6 @@ export default function CreateArticleForm(props: {userId: string, drafts: {node:
       const deadline = String(new Date(obj.deadline));
       obj.deadline = deadline;
       setArticles(oldArray => [...oldArray, JSON.parse(JSON.stringify(obj))]);
-      // const newArticles = articles;
-      // newArticles.push(obj)
-      // setArticles()
-      // console.log(newArticles)
-      // // setArticles(newArticles);
-      // newArticles.sort((a, b) => a.deadline.getTime() - b.deadline.getTime());
-      // console.log(newArticles)
-      // setArticles(newArticles)
     }
   },[state])
 
@@ -84,9 +76,9 @@ export default function CreateArticleForm(props: {userId: string, drafts: {node:
           : <></>}
           {articles.map((article) => (
             <div id={article._id} key={article._id} className="flex">
-                <p className="mr-2">{article.title}</p>
-                <p className="mr-2">{String(article.deadline).split(" 00:00:00")[0]}</p>
-                <Trash2 className="w-5 h-5" onClick={() => (deleteArticleClient(article.id))}></Trash2>
+                <p className="mr-2 font-semibold">{article.title}</p>
+                <p className="mr-2 italic">{String(article.deadline).split(" 00:00:00")[0]}</p>
+                <Trash2 className="w-5 h-5 hover:cursor-pointer" onClick={() => (deleteArticleClient(article.id))}></Trash2>
             </div>
           ))}
           <br/>

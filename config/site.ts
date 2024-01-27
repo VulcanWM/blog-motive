@@ -1,18 +1,17 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Next.js",
+  name: "BlogMotive",
   description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+    "Set targets for your blogging journey and integrate it with your Hashnode account",
   mainNav: [
     {
-      title: "Home",
-      href: "/",
+      title: "Dashboard",
+      href: "/dashboard",
     },
   ],
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
-    docs: "https://ui.shadcn.com",
+    twitter: "https://twitter.com/vulcanwm",
+    github: "https://github.com/vulcanwm/blog-motive"
   },
 }
