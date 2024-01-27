@@ -160,7 +160,7 @@ export async function addArticleFunc(prevState: { message: string } | { message:
 export async function deleteArticleFunc(articleId: string, userId: string){
     const stats = await getArticleStats(articleId)
     if (stats != null){
-        if (stats.author.id){
+        if (stats.author.id == userId){
             await deleteArticle(articleId)
         }
     }

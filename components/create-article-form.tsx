@@ -1,7 +1,7 @@
 'use client'
  
 import { useFormState } from 'react-dom'
-import { addArticleFunc } from '@/app/actions'
+import { addArticleFunc, deleteArticleFunc } from '@/app/actions'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Input } from "@/components/ui/input"
@@ -32,8 +32,9 @@ const initialState: {message: any} = {
 };
 
  
-export default function CreateArticleForm(props: {drafts: {node: {title: string, id: string}}[], stats: {"_id": string, userId: string, articleId: string, deadline: Date, id: string, title: string}[]}) {
+export default function CreateArticleForm(props: {userId: string, drafts: {node: {title: string, id: string}}[], stats: {"_id": string, userId: string, articleId: string, deadline: Date, id: string, title: string}[]}) {
   const drafts = props.drafts
+  const userId = props.userId
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState("")
   const stats = props.stats;
@@ -68,17 +69,27 @@ export default function CreateArticleForm(props: {drafts: {node: {title: string,
 
   drafts.map((draft) => (draftNames.push({label: draft.node.title, value: draft.node.id})))
 
+  async function deleteArticleClient(articleId: string){
+    await deleteArticleFunc(articleId, userId)
+    const updatedArray = articles.filter(obj => obj.id !== articleId);
+    setArticles(updatedArray);
+  }
  
   return (
     <div>
-        <h2 className="text-3xl font-bold">Draft Goals</h2>
+          {articles.length == 0 ? 
+            <div>
+              <p>You have no draft goals!</p>
+            </div>
+          : <></>}
           {articles.map((article) => (
             <div id={article._id} key={article._id} className="flex">
                 <p className="mr-2">{article.title}</p>
                 <p className="mr-2">{String(article.deadline).split(" 00:00:00")[0]}</p>
-                <Trash2 className="w-5 h-5" onClick={() => (console.log("hello"))}></Trash2>
+                <Trash2 className="w-5 h-5" onClick={() => (deleteArticleClient(article.id))}></Trash2>
             </div>
           ))}
+          <br/>
         <form action={formAction}>
           <h3 className="text-2xl font-bold">Create draft deadline</h3>
           <p className="text-red-500">{typeof state.message != "object" && state.message}</p>
